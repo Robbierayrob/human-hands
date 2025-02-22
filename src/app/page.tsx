@@ -9,8 +9,8 @@ export default function Home() {
   return (
     <div className="font-[family-name:var(--font-geist-sans)] relative">
       <VantaBackground />
-      <main>
-        <Tutorials id="tutorials" className="animate-fade-in-slide-up pt-24" />
+      <main className="relative z-10 pt-24 pb-16">
+        <Tutorials id="tutorials" className="animate-fade-in-slide-up" />
         <div className="flex justify-center mt-8">
           <video width="640" height="360" controls>
             <source src="/Finding-Solutions-in-Everyday-Fixes.mp4" type="video/mp4" />
