@@ -13,7 +13,7 @@ export default function Home() {
         <Tutorials id="tutorials" className="animate-fade-in-slide-up pt-24" />
         <div className="flex justify-center mt-8">
           <video width="640" height="360" controls>
-            <source src="/Finding-Solutions-in-Everyday Fixes.mp4" type="video/mp4" />
+            <source src="/Finding-Solutions-in-Everyday-Fixes.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </div>
