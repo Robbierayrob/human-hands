@@ -29,15 +29,21 @@ export function Tutorials({ id }: TutorialsProps) {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {tutorials.map((tutorial, index) => (
-            <Card key={index} className="hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <CardTitle>{tutorial.title}</CardTitle>
-                <CardDescription>{tutorial.description}</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg text-center">
+            <Card key={index} className="hover:shadow-lg transition-shadow h-full flex flex-col">
+              <div className="relative h-48 w-full overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600">
+                  <div className="absolute inset-0 bg-[url('/grid.svg')] bg-[size:40px_40px] opacity-20" />
+                </div>
+                <div className="absolute inset-0 flex items-center justify-center text-white text-6xl">
                   {tutorial.placeholder}
                 </div>
+              </div>
+              <CardHeader>
+                <CardTitle className="text-xl">{tutorial.title}</CardTitle>
+                <CardDescription>{tutorial.description}</CardDescription>
+              </CardHeader>
+              <div className="flex-1" />
+              <CardContent className="pb-6">
                 <Button className="w-full" asChild>
                   <a href={tutorial.link}>Start Tutorial</a>
                 </Button>
