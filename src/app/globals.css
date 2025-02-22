@@ -87,13 +87,12 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  color: white;
+  background: transparent;
+}
+
+.text-white {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 /* Existing animation */
