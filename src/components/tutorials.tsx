@@ -1,6 +1,10 @@
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 
+interface TutorialsProps {
+  id?: string
+}
+
 const tutorials = [
   {
     title: "Ikea Shelf",
@@ -16,9 +20,9 @@ const tutorials = [
   }
 ]
 
-export function Tutorials() {
+export function Tutorials({ id }: TutorialsProps) {
   return (
-    <section className="w-full py-12 md:py-24 lg:py-32">
+    <section id={id} className="w-full py-12 md:py-24 lg:py-32">
       <div className="container px-4 md:px-6">
         <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-8">
           Tutorials
