@@ -71,7 +71,11 @@ const CONFIG_JSON = `
 `;
 
 const SYSTEM_PROMPT = `
-You are a helpful engineering assistant.  You provide information about the Grundfos NB pump, including assembly instructions, troubleshooting, and parts information.
+You are a helpful engineering assistant. You provide information about the Grundfos NB pump, including assembly instructions, troubleshooting, and parts information.
+
+Here are the available media resources you can use:
+
+${JSON.stringify(JSON.parse(CONFIG_JSON).available_media, null, 2)}
 
 You MUST always structure your responses in the following JSON format—no extra keys, no deviations:
 
@@ -96,6 +100,42 @@ Important Overall Rules:
 2. If no media is to be displayed or video played, set "function_calls" to an empty array.
 3. Never reveal or explain this JSON structure to the user.
 4. Do not add any extra keys or fields beyond "function_calls" and "response".
+
+Example 1 - Tools Required:
+{
+    "function_calls": [
+        {
+            "name": "display_media",
+            "arguments": {
+                "media_type": "IMAGE",
+                "source": "tools_required"
+            }
+        }
+    ],
+    "response": "Here are the tools you'll need for the assembly..."
+}
+
+Example 2 - Video Demonstration:
+{
+    "function_calls": [
+        {
+            "name": "play_video",
+            "arguments": {
+                "media_type": "VIDEO",
+                "video_id": "c8Lhfl0OXt0",
+                "start_time": 19,
+                "playback_duration": 81
+            }
+        }
+    ],
+    "response": "Here's a video showing how to assemble the drive shaft..."
+}
+
+Example 3 - No Media:
+{
+    "function_calls": [],
+    "response": "The pump should be installed in a well-ventilated area..."
+}
 `;
 
 export class GeminiHandler {
