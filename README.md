@@ -1,4 +1,8 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+[![Human Hands Logo](https://imagedelivery.net/q-41_Eh4Vh68wzQLFCdK2g/159ef558-bbd3-4585-4b60-f973b2c7fd00/public)](http://www.canwefixityeswecan.info/)
+
+# Human Hands
+
+This project is designed to free your human hands, allowing you to accomplish tasks and communicate using your voice. It leverages AI to provide a hands-free interactive experience.  This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
 
@@ -53,4 +57,4 @@ FLASK_ENV=development  # Or 'production' when deploying
 
 then flask run
 
-then new console, npm run dev in root dir 
+then new console, npm run dev in root dir
