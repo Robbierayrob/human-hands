@@ -23,11 +23,11 @@ export async function POST(request: Request) {
         }
 
         const responseData = {
-            response: geminiResponse.get("response", ""),
+            response: geminiResponse.response || "",
             media: [],
         }
 
-        const function_calls = geminiResponse.get("function_calls", [])
+        const function_calls = geminiResponse.function_calls || []
         for (const call of function_calls) {
             if (call["name"] === "display_media") {
                 const media_url = geminiHandler.get_media_url(call["arguments"]["source"])

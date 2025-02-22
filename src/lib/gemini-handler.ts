@@ -124,16 +124,39 @@ export class GeminiHandler {
       const response = await result.response;
       const text = response.text();
       
-      // Clean up the response
-      const cleanedText = text.replace(/^```json|```$/g, '').trim();
+      // Add debug logging
+      console.log("Raw Gemini response:", text);
+      
+      // Try to extract JSON from markdown code block
+      const jsonMatch = text.match(/```json\n([\s\S]*?)\n```/);
+      let cleanedText = jsonMatch ? jsonMatch[1] : text;
+      
+      // If we don't have valid JSON, try to wrap it in a proper structure
+      if (!jsonMatch) {
+        console.log("No JSON code block found, wrapping response");
+        cleanedText = JSON.stringify({
+          function_calls: [],
+          response: text
+        });
+      }
+      
+      // Add more debug logging
+      console.log("Cleaned text for JSON parsing:", cleanedText);
       
       try {
-        return JSON.parse(cleanedText);
+        const parsed = JSON.parse(cleanedText);
+        console.log("Successfully parsed JSON:", parsed);
+        return parsed;
       } catch (error) {
         console.error("JSON Decoding Error:", error);
+        console.error("Problematic text:", cleanedText);
         return {
           error: "Invalid JSON response from model.",
-          details: String(error),
+          details: {
+            error: String(error),
+            response: text,
+            cleanedText: cleanedText
+          },
         };
       }
     } catch (error) {
