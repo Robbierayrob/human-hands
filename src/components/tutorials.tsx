@@ -23,7 +23,7 @@ const tutorials = [
 export function Tutorials({ id }: TutorialsProps) {
   return (
     <section id={id} className="w-full py-12">
-      <div className="container px-4 md:px-6 max-w-4xl">
+      <div className="container px-4 md:px-6 max-w-4xl mx-auto">
         <h2 className="text-2xl font-bold tracking-tighter sm:text-3xl text-center mb-6">
           Tutorials
         </h2>
