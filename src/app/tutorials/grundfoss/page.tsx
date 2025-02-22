@@ -7,6 +7,8 @@ interface Message {
   text: string
   sender: 'user' | 'grundfoss-bot'
   timestamp: Date
+  type?: 'text' | 'image'
+  url?: string
 }
 
 export default function GrundfossPage() {
@@ -70,13 +72,16 @@ export default function GrundfossPage() {
       console.log("API Response:", data);
       
       // Replace loading message with actual response
+      const newMessage = {
+        text: data.response,
+        sender: 'grundfoss-bot',
+        timestamp: new Date(),
+        type: data.type || 'text',
+        url: data.url
+      }
       setMessages(prev => [
         ...prev.slice(0, -1),
-        {
-          text: data.response,  // Use data.response instead of data.message
-          sender: 'grundfoss-bot',
-          timestamp: new Date()
-        }
+        newMessage
       ])
     } catch (error) {
       setMessages(prev => [
@@ -123,6 +128,15 @@ export default function GrundfossPage() {
                 }`}
               >
                 <p className="text-sm whitespace-pre-line">{msg.text}</p>
+                {msg.type === 'image' && msg.url && (
+                  <div className="mt-2">
+                    <img 
+                      src={msg.url} 
+                      alt="Response image" 
+                      className="max-w-full h-auto rounded-lg"
+                    />
+                  </div>
+                )}
                 <span className="text-xs opacity-50 block mt-1">
                   {msg.timestamp.toLocaleTimeString()}
                 </span>
