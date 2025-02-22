@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react"
 import Link from "next/link"
 import { ElevenLabsConversation } from "@/components/eleven-labs"
+import AudioVisualizer from "@/components/AudioVisualizer" // Import the new component
 
 interface Message {
   text: string
@@ -18,15 +19,28 @@ export default function GrundfossPage() {
   const [message, setMessage] = useState("")
   const [messages, setMessages] = useState<Message[]>([])
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const [userAudio, setUserAudio] = useState<MediaStream | null>(null); // State for user audio
 
   useEffect(() => {
-    // Initialize with welcome message only on client side -- REMOVED, now handled by ElevenLabs
-    // setMessages([{
-    //   text: "Hello! I'm your Grundfoss Pump System Assistant. How can I help you with pump systems today?",
-    //   sender: 'grundfoss-bot',
-    //   timestamp: new Date()
-    // }])
-  }, [])
+    // Get user media (microphone)
+    navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+      .then(stream => {
+        setUserAudio(stream);
+      })
+      .catch(err => {
+        console.error("Error accessing microphone:", err);
+        // Optionally, handle the error in the UI (e.g., show a message to the user)
+      });
+
+      return () => {
+        // Clean up the audio stream when the component unmounts
+        if (userAudio) {
+          userAudio.getTracks().forEach(track => track.stop());
+        }
+      };
+  }, []); // Empty dependency array ensures this runs only once on mount
+
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({
       behavior: "smooth",
@@ -44,66 +58,66 @@ export default function GrundfossPage() {
   }, [messages])
 
   const sendMessage = async (text: string) => {
-      // Add user message
-      const userMessage: Message = {
-        text: text,
-        sender: 'user',
-        timestamp: new Date()
-      }
-      setMessages(prev => [...prev, userMessage])
+    // Add user message
+    const userMessage: Message = {
+      text: text,
+      sender: 'user',
+      timestamp: new Date()
+    }
+    setMessages(prev => [...prev, userMessage])
 
-      try {
-        // Add loading state
-        setMessages(prev => [...prev, {
-          text: "Analyzing your query...",
+    try {
+      // Add loading state
+      setMessages(prev => [...prev, {
+        text: "Analyzing your query...",
+        sender: 'grundfoss-bot',
+        timestamp: new Date()
+      }])
+
+      // Real API call to Flask server
+      const response = await fetch('http://localhost:5000/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: text,
+          context: messages
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+      console.log("API Response:", data);
+
+      // Replace loading message with actual response
+      const newMessage = {
+        text: data.response,
+        sender: 'grundfoss-bot',
+        timestamp: new Date(),
+        type: data.media?.[0]?.type || 'text',
+        url: data.media?.[0]?.url,
+        startTime: data.media?.[0]?.start_time,
+        duration: data.media?.[0]?.duration
+      }
+      setMessages(prev => [
+        ...prev.slice(0, -1),
+        newMessage
+      ])
+    } catch (error) {
+      setMessages(prev => [
+        ...prev.slice(0, -1),
+        {
+          text: "Sorry, I'm experiencing technical difficulties. Please try again later.",
           sender: 'grundfoss-bot',
           timestamp: new Date()
-        }])
-
-        // Real API call to Flask server
-        const response = await fetch('http://localhost:5000/chat', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            message: text,
-            context: messages
-          })
-        });
-
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
         }
-
-        const data = await response.json();
-        console.log("API Response:", data);
-
-        // Replace loading message with actual response
-        const newMessage = {
-          text: data.response,
-          sender: 'grundfoss-bot',
-          timestamp: new Date(),
-          type: data.media?.[0]?.type || 'text',
-          url: data.media?.[0]?.url,
-          startTime: data.media?.[0]?.start_time,
-          duration: data.media?.[0]?.duration
-        }
-        setMessages(prev => [
-          ...prev.slice(0, -1),
-          newMessage
-        ])
-      } catch (error) {
-        setMessages(prev => [
-          ...prev.slice(0, -1),
-          {
-            text: "Sorry, I'm experiencing technical difficulties. Please try again later.",
-            sender: 'grundfoss-bot',
-            timestamp: new Date()
-          }
-        ])
-        console.error("Error sending message:", error)
-      }
+      ])
+      console.error("Error sending message:", error)
+    }
   }
 
   const handleSend = async () => {
@@ -128,16 +142,7 @@ export default function GrundfossPage() {
   };
 
   const handleUserMessage = (text: string) => {
-    // Check if the message is already in the messages array to avoid duplicates
-    if (!messages.some(msg => msg.text === text && msg.sender === 'user')) {
-      // const newMessage: Message = {  <- Removed: Now handled in handleSendVoice
-      //   text: text,
-      //   sender: 'user',
-      //   timestamp: new Date(),
-      // };
-      // setMessages((prevMessages) => [...prevMessages, newMessage]);
       handleSendVoice(text); // Call handleSendVoice to send the message to the backend
-    }
   };
 
   return (
@@ -151,6 +156,10 @@ export default function GrundfossPage() {
       </div>
       <div className="space-y-4">
         <ElevenLabsConversation onAiMessage={handleAiMessage} onUserMessage={handleUserMessage}/>
+        {/* Add the AudioVisualizer component here */}
+        <div className="mb-4">
+          <AudioVisualizer audio={userAudio} />
+        </div>
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg flex flex-col h-[calc(100vh-300px)] min-h-[500px] max-h-[700px]">
           <div className="p-4 border-b dark:border-gray-700">
             <h3 className="font-semibold">Grundfoss Pump System Chat</h3>
