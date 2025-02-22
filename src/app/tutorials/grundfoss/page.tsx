@@ -28,11 +28,19 @@ export default function GrundfossPage() {
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+    messagesEndRef.current?.scrollIntoView({ 
+      behavior: "smooth",
+      block: "end"  // Ensure the entire block is visible
+    })
   }
 
   useEffect(() => {
-    scrollToBottom()
+    // Add a small delay to ensure media is loaded before scrolling
+    const timer = setTimeout(() => {
+      scrollToBottom()
+    }, 100)
+    
+    return () => clearTimeout(timer)
   }, [messages])
 
   const handleSend = async () => {
@@ -138,6 +146,7 @@ export default function GrundfossPage() {
                       src={msg.url} 
                       alt="Response image" 
                       className="max-w-full max-h-[400px] object-contain rounded-lg"
+                      onLoad={scrollToBottom}  // Scroll when image loads
                     />
                   </div>
                 )}
