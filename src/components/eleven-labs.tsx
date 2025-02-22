@@ -3,11 +3,20 @@
 import { useConversation } from '@11labs/react';
 import { useCallback } from 'react';
 
-export function ElevenLabsConversation() {
+interface ElevenLabsConversationProps {
+  onAiMessage: (text: string) => void;
+}
+
+export function ElevenLabsConversation({ onAiMessage }: ElevenLabsConversationProps) {
   const conversation = useConversation({
     onConnect: () => console.log('Connected'),
     onDisconnect: () => console.log('Disconnected'),
-    onMessage: (message) => console.log('Message:', message),
+    onMessage: (message) => {
+      console.log('Message:', message);
+      if (message.source === 'ai') {
+        onAiMessage(message.message);
+      }
+    },
     onError: (error) => console.error('Error:', error),
   });
 
@@ -56,3 +65,4 @@ export function ElevenLabsConversation() {
     </div>
   );
 }
+

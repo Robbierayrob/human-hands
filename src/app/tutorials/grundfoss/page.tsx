@@ -19,17 +19,17 @@ export default function GrundfossPage() {
   const [messages, setMessages] = useState<Message[]>([])
 
   useEffect(() => {
-    // Initialize with welcome message only on client side
-    setMessages([{
-      text: "Hello! I'm your Grundfoss Pump System Assistant. How can I help you with pump systems today?",
-      sender: 'grundfoss-bot',
-      timestamp: new Date()
-    }])
+    // Initialize with welcome message only on client side -- REMOVED, now handled by ElevenLabs
+    // setMessages([{
+    //   text: "Hello! I'm your Grundfoss Pump System Assistant. How can I help you with pump systems today?",
+    //   sender: 'grundfoss-bot',
+    //   timestamp: new Date()
+    // }])
   }, [])
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ 
+    messagesEndRef.current?.scrollIntoView({
       behavior: "smooth",
       block: "end"  // Ensure the entire block is visible
     })
@@ -40,13 +40,13 @@ export default function GrundfossPage() {
     const timer = setTimeout(() => {
       scrollToBottom()
     }, 100)
-    
+
     return () => clearTimeout(timer)
   }, [messages])
 
   const handleSend = async () => {
     if (message.trim() === "") return
-    
+
     // Add user message
     const userMessage: Message = {
       text: message,
@@ -54,7 +54,7 @@ export default function GrundfossPage() {
       timestamp: new Date()
     }
     setMessages(prev => [...prev, userMessage])
-    
+
     try {
       // Add loading state
       setMessages(prev => [...prev, {
@@ -62,7 +62,7 @@ export default function GrundfossPage() {
         sender: 'grundfoss-bot',
         timestamp: new Date()
       }])
-      
+
       // Real API call to Flask server
       const response = await fetch('http://localhost:5000/chat', {
         method: 'POST',
@@ -74,14 +74,14 @@ export default function GrundfossPage() {
           context: messages
         })
       });
-      
+
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-      
+
       const data = await response.json();
       console.log("API Response:", data);
-      
+
       // Replace loading message with actual response
       const newMessage = {
         text: data.response,
@@ -107,9 +107,18 @@ export default function GrundfossPage() {
       ])
       console.error("Error sending message:", error)
     }
-    
+
     setMessage("")
   }
+
+  const handleAiMessage = (text: string) => {
+    const newMessage: Message = {
+      text: text,
+      sender: 'grundfoss-bot',
+      timestamp: new Date(),
+    };
+    setMessages((prevMessages) => [...prevMessages, newMessage]);
+  };
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
@@ -121,12 +130,12 @@ export default function GrundfossPage() {
         <div className="w-20"></div> {/* Spacer for alignment */}
       </div>
       <div className="space-y-4">
-        <ElevenLabsConversation />
+        <ElevenLabsConversation onAiMessage={handleAiMessage} />
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg flex flex-col h-[calc(100vh-300px)] min-h-[500px] max-h-[700px]">
           <div className="p-4 border-b dark:border-gray-700">
             <h3 className="font-semibold">Grundfoss Pump System Chat</h3>
           </div>
-        
+
         <div className="flex-1 p-4 overflow-y-auto scroll-smooth">
           {messages.map((msg, index) => (
             <div
@@ -145,9 +154,9 @@ export default function GrundfossPage() {
                 <p className="text-sm whitespace-pre-line">{msg.text}</p>
                 {msg.type === 'image' && msg.url && (
                   <div className="mt-2">
-                    <img 
-                      src={msg.url} 
-                      alt="Response image" 
+                    <img
+                      src={msg.url}
+                      alt="Response image"
                       className="max-w-full max-h-[400px] object-contain rounded-lg"
                       onLoad={scrollToBottom}  // Scroll when image loads
                     />
@@ -179,7 +188,7 @@ export default function GrundfossPage() {
           ))}
           <div ref={messagesEndRef} />
         </div>
-        
+
         <div className="p-4 border-t dark:border-gray-700">
           <div className="flex flex-col space-y-2">
             <textarea
