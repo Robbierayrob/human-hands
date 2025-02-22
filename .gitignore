@@ -43,3 +43,6 @@ next-env.d.ts
 .aider.chat.history.md
 .aider.input.history
 /.aider.tags.cache.v3
+
+/src/agents-api/venv
+/src/agents-api/__pycache__
