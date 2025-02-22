@@ -2,6 +2,7 @@
 
 import { Hero } from "@/components/hero"
 import { Tutorials } from "@/components/tutorials"
+import { VantaBackground } from "@/components/VantaBackground"
 import React, { useState } from 'react';
 
 export default function Home() {
@@ -14,7 +15,8 @@ export default function Home() {
   };
 
   return (
-    <div className="font-[family-name:var(--font-geist-sans)]">
+    <div className="font-[family-name:var(--font-geist-sans)] relative">
+      <VantaBackground />
       <main>
         <section className="w-full py-12 bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 animate-fade-in-slide-up">
           <div className="container px-4 md:px-6 max-w-4xl mx-auto">
