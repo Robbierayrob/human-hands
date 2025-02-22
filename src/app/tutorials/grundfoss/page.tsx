@@ -43,72 +43,80 @@ export default function GrundfossPage() {
     return () => clearTimeout(timer)
   }, [messages])
 
-  const handleSend = async () => {
-    if (message.trim() === "") return
-
-    // Add user message
-    const userMessage: Message = {
-      text: message,
-      sender: 'user',
-      timestamp: new Date()
-    }
-    setMessages(prev => [...prev, userMessage])
-
-    try {
-      // Add loading state
-      setMessages(prev => [...prev, {
-        text: "Analyzing your query...",
-        sender: 'grundfoss-bot',
+  const sendMessage = async (text: string) => {
+      // Add user message
+      const userMessage: Message = {
+        text: text,
+        sender: 'user',
         timestamp: new Date()
-      }])
-
-      // Real API call to Flask server
-      const response = await fetch('http://localhost:5000/chat', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          message: message,
-          context: messages
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
       }
+      setMessages(prev => [...prev, userMessage])
 
-      const data = await response.json();
-      console.log("API Response:", data);
-
-      // Replace loading message with actual response
-      const newMessage = {
-        text: data.response,
-        sender: 'grundfoss-bot',
-        timestamp: new Date(),
-        type: data.media?.[0]?.type || 'text',
-        url: data.media?.[0]?.url,
-        startTime: data.media?.[0]?.start_time,
-        duration: data.media?.[0]?.duration
-      }
-      setMessages(prev => [
-        ...prev.slice(0, -1),
-        newMessage
-      ])
-    } catch (error) {
-      setMessages(prev => [
-        ...prev.slice(0, -1),
-        {
-          text: "Sorry, I'm experiencing technical difficulties. Please try again later.",
+      try {
+        // Add loading state
+        setMessages(prev => [...prev, {
+          text: "Analyzing your query...",
           sender: 'grundfoss-bot',
           timestamp: new Date()
-        }
-      ])
-      console.error("Error sending message:", error)
-    }
+        }])
 
-    setMessage("")
+        // Real API call to Flask server
+        const response = await fetch('http://localhost:5000/chat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            message: text,
+            context: messages
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        console.log("API Response:", data);
+
+        // Replace loading message with actual response
+        const newMessage = {
+          text: data.response,
+          sender: 'grundfoss-bot',
+          timestamp: new Date(),
+          type: data.media?.[0]?.type || 'text',
+          url: data.media?.[0]?.url,
+          startTime: data.media?.[0]?.start_time,
+          duration: data.media?.[0]?.duration
+        }
+        setMessages(prev => [
+          ...prev.slice(0, -1),
+          newMessage
+        ])
+      } catch (error) {
+        setMessages(prev => [
+          ...prev.slice(0, -1),
+          {
+            text: "Sorry, I'm experiencing technical difficulties. Please try again later.",
+            sender: 'grundfoss-bot',
+            timestamp: new Date()
+          }
+        ])
+        console.error("Error sending message:", error)
+      }
   }
+
+  const handleSend = async () => {
+    if (message.trim() === "") return;
+    await sendMessage(message);
+    setMessage("");
+  }
+
+  const handleSendVoice = async (text: string) => {
+    if (text.trim() === "") return;
+    await sendMessage(text);
+    // Don't clear the message state here, as it's for the textarea
+  };
 
   const handleAiMessage = (text: string) => {
     const newMessage: Message = {
@@ -122,12 +130,13 @@ export default function GrundfossPage() {
   const handleUserMessage = (text: string) => {
     // Check if the message is already in the messages array to avoid duplicates
     if (!messages.some(msg => msg.text === text && msg.sender === 'user')) {
-      const newMessage: Message = {
-        text: text,
-        sender: 'user',
-        timestamp: new Date(),
-      };
-      setMessages((prevMessages) => [...prevMessages, newMessage]);
+      // const newMessage: Message = {  <- Removed: Now handled in handleSendVoice
+      //   text: text,
+      //   sender: 'user',
+      //   timestamp: new Date(),
+      // };
+      // setMessages((prevMessages) => [...prevMessages, newMessage]);
+      handleSendVoice(text); // Call handleSendVoice to send the message to the backend
     }
   };
 
