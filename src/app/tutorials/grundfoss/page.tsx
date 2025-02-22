@@ -123,9 +123,9 @@ export default function GrundfossPage() {
       <div className="space-y-4">
         <ElevenLabsConversation />
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg flex flex-col h-[calc(100vh-300px)] min-h-[500px] max-h-[700px]">
-        <div className="p-4 border-b dark:border-gray-700">
-          <h3 className="font-semibold">Grundfoss Pump System Chat</h3>
-        </div>
+          <div className="p-4 border-b dark:border-gray-700">
+            <h3 className="font-semibold">Grundfoss Pump System Chat</h3>
+          </div>
         
         <div className="flex-1 p-4 overflow-y-auto scroll-smooth">
           {messages.map((msg, index) => (
@@ -201,9 +201,10 @@ export default function GrundfossPage() {
             >
               Send
             </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
