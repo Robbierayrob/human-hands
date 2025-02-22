@@ -1,11 +1,13 @@
 # app.py
 from flask import Flask, request, jsonify, send_from_directory, render_template
+from flask_cors import CORS
 from .utils import GeminiHandler, create_dummy_images  # Relative import
 from .config import Config  # Relative import
 import os
 
 app = Flask(__name__)
 app.config.from_object(Config)
+CORS(app)  # Enable CORS for all routes
 
 gemini_handler = GeminiHandler()
 create_dummy_images()  # Ensure dummy images exist
