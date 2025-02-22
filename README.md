@@ -97,6 +97,9 @@ The primary goal of Human Hands is to empower users by enabling them to interact
 
     ```bash
     cd src/agents-api
+    python -m venv venv
+    source venv/bin/activate or source venv\Scripts\activate  # On Windows
+    pip install -r requirements.txt
     flask run
     ```
     This will typically start the Flask server on `http://127.0.0.1:5000`.
