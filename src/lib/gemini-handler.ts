@@ -189,8 +189,8 @@ Assistant:
 
 export class GeminiHandler {
   private configData: ConfigData;
-  private model: any;
-  private chat: any;
+  private model: GoogleGenerativeAI.GenerativeModel;
+  private chat: GoogleGenerativeAI.ChatSession;
 
   constructor() {
     const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY!);
@@ -206,7 +206,15 @@ export class GeminiHandler {
     this.chat = this.model.startChat();
   }
 
-  async processMessage(userMessage: string): Promise<any> {
+  async processMessage(userMessage: string): Promise<{
+    function_calls?: Array<{
+      name: string;
+      arguments: Record<string, unknown>;
+    }>;
+    response?: string;
+    error?: string;
+    details?: unknown;
+  }> {
     try {
       const fullMessage = SYSTEM_PROMPT + "\n\n" + userMessage;
       const result = await this.chat.sendMessage(fullMessage);
