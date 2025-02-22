@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react"
 import Link from "next/link"
+import { ElevenLabsConversation } from "@/components/eleven-labs"
 
 interface Message {
   text: string
@@ -119,7 +120,9 @@ export default function GrundfossPage() {
         <h1 className="text-3xl font-bold">Grundfoss Pump System Assistant</h1>
         <div className="w-20"></div> {/* Spacer for alignment */}
       </div>
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg flex flex-col h-[calc(100vh-200px)] min-h-[600px] max-h-[800px]">
+      <div className="space-y-4">
+        <ElevenLabsConversation />
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg flex flex-col h-[calc(100vh-300px)] min-h-[500px] max-h-[700px]">
         <div className="p-4 border-b dark:border-gray-700">
           <h3 className="font-semibold">Grundfoss Pump System Chat</h3>
         </div>
