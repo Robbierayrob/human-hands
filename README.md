@@ -37,7 +37,19 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 npm i 
 
-then cd into src/agents-api and pip install -r requirements.txt
+then cd into src/agents-api
+
+python -m venv venv
+
+source venv/bin/activate or venv\Scripts\activate
+
+and pip install -r requirements.txt
+
+then put .env with 
+
+GOOGLE_API_KEY=enter GOOGLE_API_KEY here
+FLASK_APP=app.py  # Or whatever your main file is named
+FLASK_ENV=development  # Or 'production' when deploying
 
 then flask run
 
