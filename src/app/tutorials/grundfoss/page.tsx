@@ -76,8 +76,8 @@ export default function GrundfossPage() {
         text: data.response,
         sender: 'grundfoss-bot',
         timestamp: new Date(),
-        type: data.type || 'text',
-        url: data.url
+        type: data.media?.[0]?.type || 'text',
+        url: data.media?.[0]?.url
       }
       setMessages(prev => [
         ...prev.slice(0, -1),
