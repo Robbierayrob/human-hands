@@ -11,11 +11,16 @@ interface Message {
 
 export default function GrundfossPage() {
   const [message, setMessage] = useState("")
-  const [messages, setMessages] = useState<Message[]>([{
-    text: "Hello! I'm your Grundfoss Pump System Assistant. How can I help you with pump systems today?",
-    sender: 'grundfoss-bot',
-    timestamp: new Date()
-  }])
+  const [messages, setMessages] = useState<Message[]>([])
+
+  useEffect(() => {
+    // Initialize with welcome message only on client side
+    setMessages([{
+      text: "Hello! I'm your Grundfoss Pump System Assistant. How can I help you with pump systems today?",
+      sender: 'grundfoss-bot',
+      timestamp: new Date()
+    }])
+  }, [])
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   const scrollToBottom = () => {

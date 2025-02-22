@@ -11,11 +11,16 @@ interface Message {
 
 export default function IkeaShelfPage() {
   const [message, setMessage] = useState("")
-  const [messages, setMessages] = useState<Message[]>([{
-    text: "Hi! I'm your IKEA Shelf Assistant. How can I help you with your shelf design today?",
-    sender: 'ikea-bot',
-    timestamp: new Date()
-  }])
+  const [messages, setMessages] = useState<Message[]>([])
+
+  useEffect(() => {
+    // Initialize with welcome message only on client side
+    setMessages([{
+      text: "Hi! I'm your IKEA Shelf Assistant. How can I help you with your shelf design today?",
+      sender: 'ikea-bot',
+      timestamp: new Date()
+    }])
+  }, [])
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   const scrollToBottom = () => {
