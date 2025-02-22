@@ -38,13 +38,13 @@ export function Tutorials({ id }: TutorialsProps) {
                   {tutorial.placeholder}
                 </div>
               </div>
-              <CardHeader>
+              <CardHeader className="text-center">
                 <CardTitle className="text-xl">{tutorial.title}</CardTitle>
-                <CardDescription>{tutorial.description}</CardDescription>
+                <CardDescription className="mx-auto">{tutorial.description}</CardDescription>
               </CardHeader>
               <div className="flex-1" />
-              <CardContent className="pb-6">
-                <Button className="w-full" asChild>
+              <CardContent className="pb-6 text-center">
+                <Button className="w-full max-w-[200px] mx-auto" asChild>
                   <a href={tutorial.link}>Start Tutorial</a>
                 </Button>
               </CardContent>
