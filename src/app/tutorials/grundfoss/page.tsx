@@ -45,15 +45,29 @@ export default function GrundfossPage() {
         timestamp: new Date()
       }])
       
+      // Mock API call
+      console.log("Mock API Request:", {
+        endpoint: "/api/grundfoss-chat",
+        method: "POST",
+        body: {
+          message: message,
+          context: messages
+        }
+      })
+
       // Mock API response with Grundfoss-specific knowledge
-      const response = await new Promise(resolve => setTimeout(() => resolve({
-        success: true,
-        message: `For your pump system, I recommend considering:
-        - Energy efficiency optimization
-        - Proper system sizing
-        - Maintenance schedules
-        - Grundfoss-specific solutions`
-      }), 1000))
+      const response = await new Promise(resolve => setTimeout(() => {
+        const mockResponse = {
+          success: true,
+          message: `For your pump system, I recommend considering:
+          - Energy efficiency optimization
+          - Proper system sizing
+          - Maintenance schedules
+          - Grundfoss-specific solutions`
+        }
+        console.log("Mock API Response:", mockResponse)
+        resolve(mockResponse)
+      }, 1000))
       
       // Replace loading message with actual response
       setMessages(prev => [
