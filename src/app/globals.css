@@ -59,6 +59,19 @@
   }
 }
 
+.animate-point-left {
+  animation: point-left 1s infinite;
+}
+
+@keyframes point-left {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-5px);
+  }
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;

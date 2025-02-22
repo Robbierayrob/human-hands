@@ -63,8 +63,23 @@ export function ElevenLabsConversation({ onAiMessage, onUserMessage }: ElevenLab
 
   return (
     <div className="flex flex-col items-center gap-4">
-      <div className="flex gap-2">
+      <div className="flex gap-2 items-center"> {/* Wrap in a flex container */}
         <ToggleButton onToggle={handleToggleChange} initialState={sessionStarted} />
+        <div className="flex items-center pointer-events-none">
+          <span className="text-sm text-gray-500 mr-1">Press here to begin!</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            className="h-4 w-4 text-gray-500 animate-point-left"
+          >
+            <path
+              fillRule="evenodd"
+              d="M15.707 4.293a1 1 0 010 1.414L11.414 10l4.293 4.293a1 1 0 11-1.414 1.414l-5-5a1 1 0 010-1.414l5-5a1 1 0 011.414 0z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </div>
       </div>
 
       <div className="flex items-center">
