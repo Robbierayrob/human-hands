@@ -25,6 +25,21 @@
   }
 }
 
+.toggle-button {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2),
+              0 0 0 1px rgba(0, 0, 0, 0.1), /* subtle outline */
+              inset 0 0 5px rgba(0, 0, 0, 0.1); /* inner shadow */
+}
+
+.toggle-button:active {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2),
+              0 0 0 1px rgba(0, 0, 0, 0.1),
+              inset 0 0 8px rgba(0, 0, 0, 0.2); /* slightly stronger inner shadow on press */
+}
+.toggle-button span {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
