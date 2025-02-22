@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button"
 
 interface TutorialsProps {
   id?: string
+  className?: string
 }
 
 const tutorials = [
@@ -20,9 +21,9 @@ const tutorials = [
   }
 ]
 
-export function Tutorials({ id }: TutorialsProps) {
+export function Tutorials({ id, className }: TutorialsProps) {
   return (
-    <section id={id} className="w-full py-12">
+    <section id={id} className={`w-full py-12 ${className}`}>
       <div className="container px-4 md:px-6 max-w-4xl mx-auto">
         <div className="text-center mb-8">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-white">

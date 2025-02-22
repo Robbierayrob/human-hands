@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <div className="font-[family-name:var(--font-geist-sans)]">
       <main>
-        <section className="w-full py-12 bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900">
+        <section className="w-full py-12 bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 animate-fade-in-slide-up">
           <div className="container px-4 md:px-6 max-w-4xl mx-auto">
             <div className="text-center mb-8">
               <div className="mt-10 flex flex-col items-center">
@@ -35,7 +35,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <Tutorials id="tutorials" />
+        <Tutorials id="tutorials" className="animate-fade-in-slide-up" />
       </main>
     </div>
   );
