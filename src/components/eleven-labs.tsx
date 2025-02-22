@@ -62,9 +62,9 @@ export function ElevenLabsConversation({ onAiMessage, onUserMessage }: ElevenLab
       </div>
 
       <div className="flex items-center">
-        {!conversation.isSpeaking && (
+        {!conversation.isSpeaking && conversation.status === 'connected' ? (
           <span className="w-3 h-3 bg-red-500 rounded-full mr-2" title="Listening..."></span>
-        )}
+        ) : null}
       </div>
     </div>
   );
