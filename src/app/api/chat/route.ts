@@ -27,9 +27,19 @@ export async function POST(request: Request) {
             media: [],
         }
 
-        const function_calls = geminiResponse.function_calls || []
+        interface FunctionCall {
+            name: string;
+            arguments: {
+                source?: string;
+                video_id?: string;
+                start_time?: number;
+                playback_duration?: number;
+            };
+        }
+
+        const function_calls: FunctionCall[] = geminiResponse.function_calls || []
         for (const call of function_calls) {
-            if (call.name === "display_media") {
+            if (call.name === "display_media" && call.arguments.source) {
                 const media_url = geminiHandler.getMediaUrl(call.arguments.source)
                 if (media_url) {
                     responseData.media.push({
