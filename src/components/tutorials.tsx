@@ -43,8 +43,8 @@ export function Tutorials({ id }: TutorialsProps) {
                 <CardDescription className="mx-auto">{tutorial.description}</CardDescription>
               </CardHeader>
               <div className="flex-1" />
-              <CardContent className="pb-6 text-center">
-                <Button className="w-full max-w-[200px] mx-auto" asChild>
+              <CardContent className="pb-4 text-center">
+                <Button className="w-full max-w-[200px] mx-auto bg-orange-500 hover:bg-orange-600" asChild>
                   <a href={tutorial.link}>Start Tutorial</a>
                 </Button>
               </CardContent>
