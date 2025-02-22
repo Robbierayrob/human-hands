@@ -68,7 +68,7 @@ export default function IkeaShelfPage() {
       setMessages(prev => [
         ...prev.slice(0, -1),
         {
-          text: (response as any).message,
+          text: data.message,
           sender: 'ikea-bot',
           timestamp: new Date()
         }

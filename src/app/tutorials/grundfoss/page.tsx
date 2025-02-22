@@ -68,7 +68,7 @@ export default function GrundfossPage() {
       setMessages(prev => [
         ...prev.slice(0, -1),
         {
-          text: (response as any).message,
+          text: data.message,
           sender: 'grundfoss-bot',
           timestamp: new Date()
         }
