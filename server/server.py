@@ -9,7 +9,7 @@ CORS(app)  # Enable CORS for all routes
 # Configure Google AI
 GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
 genai.configure(api_key=GOOGLE_API_KEY)
-model = genai.GenerativeModel('gemini-pro')
+model = genai.GenerativeModel('gemini-2.0-flash')
 
 def generate_response(prompt, context):
     try:
