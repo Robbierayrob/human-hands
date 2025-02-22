@@ -1,3 +1,5 @@
+"use client"
+
 import { Hero } from "@/components/hero"
 import { Tutorials } from "@/components/tutorials"
 
