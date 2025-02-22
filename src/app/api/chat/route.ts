@@ -51,7 +51,7 @@ export async function POST(request: Request) {
                 if (media_url) {
                     responseData.media.push({
                         type: "image",
-                        url: media_url
+                        url: media_url // media_url is guaranteed to be string here
                     })
                 }
             } else if (call.name === "play_video" && call.arguments.video_id && call.arguments.start_time) {
@@ -61,16 +61,20 @@ export async function POST(request: Request) {
 
                 const video_info = geminiHandler.getVideoInfo(video_id, start_time)
                 if (video_info) {
-                    const video_url = geminiHandler.getMediaUrl(
-                        Object.keys(geminiHandler.getConfigData().available_media)
-                            .find(key => geminiHandler.getConfigData().available_media[key] === video_info) || ''
-                    )
-                    responseData.media.push({
-                        type: "video",
-                        url: video_url,
-                        start_time: start_time,
-                        duration: duration
-                    })
+                    const media_key = Object.keys(geminiHandler.getConfigData().available_media)
+                        .find(key => geminiHandler.getConfigData().available_media[key] === video_info);
+                    
+                    if (media_key) {
+                        const video_url = geminiHandler.getMediaUrl(media_key);
+                        if (video_url) {
+                            responseData.media.push({
+                                type: "video",
+                                url: video_url, // video_url is guaranteed to be string here
+                                start_time: start_time,
+                                duration: duration
+                            })
+                        }
+                    }
                 }
             } else if (call.name === "clear_media") {
                 responseData.media = []
