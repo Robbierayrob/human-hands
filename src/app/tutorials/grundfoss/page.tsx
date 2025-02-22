@@ -7,8 +7,10 @@ interface Message {
   text: string
   sender: 'user' | 'grundfoss-bot'
   timestamp: Date
-  type?: 'text' | 'image'
+  type?: 'text' | 'image' | 'video'
   url?: string
+  startTime?: number
+  duration?: number
 }
 
 export default function GrundfossPage() {
@@ -77,7 +79,9 @@ export default function GrundfossPage() {
         sender: 'grundfoss-bot',
         timestamp: new Date(),
         type: data.media?.[0]?.type || 'text',
-        url: data.media?.[0]?.url
+        url: data.media?.[0]?.url,
+        startTime: data.media?.[0]?.start_time,
+        duration: data.media?.[0]?.duration
       }
       setMessages(prev => [
         ...prev.slice(0, -1),
@@ -135,6 +139,24 @@ export default function GrundfossPage() {
                       alt="Response image" 
                       className="max-w-full h-auto rounded-lg"
                     />
+                  </div>
+                )}
+                {msg.type === 'video' && msg.url && (
+                  <div className="mt-2">
+                    <iframe
+                      width="100%"
+                      height="315"
+                      src={`${msg.url.replace('watch?v=', 'embed/')}?autoplay=1&start=${msg.startTime || 0}`}
+                      title="YouTube video player"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="rounded-lg"
+                    />
+                    {msg.duration && (
+                      <div className="text-xs text-gray-500 mt-1">
+                        Video will stop after {msg.duration} seconds
+                      </div>
+                    )}
                   </div>
                 )}
                 <span className="text-xs opacity-50 block mt-1">
