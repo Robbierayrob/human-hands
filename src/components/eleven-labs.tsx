@@ -26,16 +26,6 @@ export function ElevenLabsConversation({ onAiMessage, onUserMessage }: ElevenLab
 
   const [sessionStarted, setSessionStarted] = useState(false); // Track session start
 
-  // Use useEffect to manage starting/stopping based on sessionStarted
-  useEffect(() => {
-    if (sessionStarted) {
-      startConversation();
-    } else {
-      stopConversation();
-    }
-  }, [sessionStarted, startConversation, stopConversation]);
-
-
   const startConversation = useCallback(async () => {
     try {
       // Request microphone permission
@@ -56,6 +46,16 @@ export function ElevenLabsConversation({ onAiMessage, onUserMessage }: ElevenLab
     await conversation.endSession();
     // setSessionStarted(false); <- Moved to useEffect
   }, [conversation]);
+
+  // Use useEffect to manage starting/stopping based on sessionStarted
+  useEffect(() => {
+    if (sessionStarted) {
+      startConversation();
+    } else {
+      stopConversation();
+    }
+  }, [sessionStarted, startConversation, stopConversation]);
+
 
     const handleToggleChange = (isOn: boolean) => {
     setSessionStarted(isOn);
