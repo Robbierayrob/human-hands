@@ -16,7 +16,7 @@ export async function POST(request: Request) {
         }
 
         const userMessage = data.message
-        const geminiResponse = geminiHandler.process_message(userMessage)
+        const geminiResponse = await geminiHandler.processMessage(userMessage)
 
         if ("error" in geminiResponse) {
             return NextResponse.json(geminiResponse, { status: 500 })
