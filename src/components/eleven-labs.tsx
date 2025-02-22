@@ -1,7 +1,7 @@
 'use client';
 
 import { useConversation } from '@11labs/react';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
 interface ElevenLabsConversationProps {
   onAiMessage: (text: string) => void;
@@ -23,6 +23,8 @@ export function ElevenLabsConversation({ onAiMessage, onUserMessage }: ElevenLab
     onError: (error) => console.error('Error:', error),
   });
 
+  const [sessionStarted, setSessionStarted] = useState(false); // Track session start
+
   const startConversation = useCallback(async () => {
     try {
       // Request microphone permission
@@ -32,6 +34,7 @@ export function ElevenLabsConversation({ onAiMessage, onUserMessage }: ElevenLab
       await conversation.startSession({
         agentId: 'alW2fCMLhSwBA36jPYyo',
       });
+      setSessionStarted(true); // Set sessionStarted to true
 
     } catch (error) {
       console.error('Failed to start conversation:', error);
@@ -40,6 +43,7 @@ export function ElevenLabsConversation({ onAiMessage, onUserMessage }: ElevenLab
 
   const stopConversation = useCallback(async () => {
     await conversation.endSession();
+    setSessionStarted(false); // Reset sessionStarted on stop
   }, [conversation]);
 
   return (
@@ -62,8 +66,8 @@ export function ElevenLabsConversation({ onAiMessage, onUserMessage }: ElevenLab
       </div>
 
       <div className="flex items-center">
-        {!conversation.isSpeaking && conversation.status === 'connected' ? (
-          <span className="w-3 h-3 bg-red-500 rounded-full mr-2" title="Listening..."></span>
+        {conversation.status === 'connected' && sessionStarted ? (
+          <span className="listening-dot mr-2" title="Listening..."></span>
         ) : null}
       </div>
     </div>
