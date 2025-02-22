@@ -111,12 +111,12 @@ export default function GrundfossPage() {
         <h1 className="text-3xl font-bold">Grundfoss Pump System Assistant</h1>
         <div className="w-20"></div> {/* Spacer for alignment */}
       </div>
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg flex flex-col h-[600px]">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg flex flex-col h-[calc(100vh-200px)] min-h-[600px] max-h-[800px]">
         <div className="p-4 border-b dark:border-gray-700">
           <h3 className="font-semibold">Grundfoss Pump System Chat</h3>
         </div>
         
-        <div className="flex-1 p-4 overflow-y-auto">
+        <div className="flex-1 p-4 overflow-y-auto scroll-smooth">
           {messages.map((msg, index) => (
             <div
               key={index}
@@ -137,7 +137,7 @@ export default function GrundfossPage() {
                     <img 
                       src={msg.url} 
                       alt="Response image" 
-                      className="max-w-full h-auto rounded-lg"
+                      className="max-w-full max-h-[400px] object-contain rounded-lg"
                     />
                   </div>
                 )}
@@ -150,7 +150,7 @@ export default function GrundfossPage() {
                       title="YouTube video player"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
-                      className="rounded-lg"
+                      className="rounded-lg w-full aspect-video"
                     />
                     {msg.duration && (
                       <div className="text-xs text-gray-500 mt-1">
