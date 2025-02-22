@@ -92,7 +92,12 @@ body {
 }
 
 .text-white {
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.relative.z-10 {
+  position: relative;
+  z-index: 10;
 }
 
 /* Existing animation */

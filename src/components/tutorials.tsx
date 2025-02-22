@@ -25,16 +25,14 @@ export function Tutorials({ id, className }: TutorialsProps) {
   return (
     <section id={id} className={`w-full py-12 ${className}`}>
       <div className="container px-4 md:px-6 max-w-4xl mx-auto">
-        <div className="mb-8 pl-8">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
+        <div className="mb-8 pl-8 relative z-10">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2">
             Can we fix it? Yes we can!
           </h1>
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-white">
-            Explore Our Tutorials
-          </h2>
-          <p className="mt-3 text-lg text-white/80 max-w-2xl">
-            Hands-on guides to help you master engineering concepts
-          </p>
+          <div className="flex items-center gap-2">
+            <span className="text-lg text-white/80">with Human Hands</span>
+            <span className="text-2xl">👐</span>
+          </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pl-8">
           {tutorials.map((tutorial, index) => (
