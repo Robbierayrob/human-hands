@@ -11,7 +11,7 @@ export function Hero() {
               Welcome to the Engineering Assistant
             </h1>
             <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
-              Build your next great idea with our powerful tools and services.
+              Visually learn with our tutorial assistant
             </p>
           </div>
           <div className="space-x-4">
