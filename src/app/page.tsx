@@ -18,7 +18,7 @@ export default function Home() {
     <div className="font-[family-name:var(--font-geist-sans)] relative">
       <VantaBackground />
       <main>
-        <section className="w-full py-12 bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 animate-fade-in-slide-up">
+        <section className="w-full py-12 bg-transparent animate-fade-in-slide-up">
           <div className="container px-4 md:px-6 max-w-4xl mx-auto">
             <div className="text-center mb-8">
               <div className="mt-10 flex flex-col items-center">
