@@ -1,6 +1,6 @@
 "use client"
 
-import { Hero } from "@/components/hero"
+
 import { Tutorials } from "@/components/tutorials"
 import { VantaBackground } from "@/components/VantaBackground"
 import React, { useState } from 'react';
