@@ -93,7 +93,7 @@ export default function GrundfossPage() {
       console.log("API Response:", data);
 
       // Replace loading message with actual response
-      const newMessage = {
+      const newMessage: Message = {
         text: data.response,
         sender: 'grundfoss-bot',
         timestamp: new Date(),
