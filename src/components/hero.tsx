@@ -15,7 +15,9 @@ export function Hero() {
             </p>
           </div>
           <div className="space-x-4">
-            <Button>Get Started</Button>
+            <Button onClick={() => document.getElementById('tutorials')?.scrollIntoView({ behavior: 'smooth' })}>
+              Get Started
+            </Button>
             <Button variant="outline">Learn More</Button>
           </div>
         </div>

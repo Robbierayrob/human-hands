@@ -3,19 +3,16 @@ import { Button } from "@/components/ui/button"
 
 const tutorials = [
   {
-    title: "Getting Started",
-    description: "Learn the basics of using the Engineering Assistant",
-    link: "/tutorials/getting-started"
+    title: "Ikea Shelf",
+    description: "Design and optimize your shelf structures",
+    link: "/tutorials/ikea-shelf",
+    placeholder: "📚 Shelf Design Tools"
   },
   {
-    title: "Advanced Features",
-    description: "Explore the powerful tools for complex engineering tasks",
-    link: "/tutorials/advanced-features"
-  },
-  {
-    title: "Best Practices",
-    description: "Discover industry-standard approaches to engineering problems",
-    link: "/tutorials/best-practices"
+    title: "Grundfoss",
+    description: "Pump system analysis and optimization",
+    link: "/tutorials/grundfoss",
+    placeholder: "💧 Pump System Tools"
   }
 ]
 
@@ -26,14 +23,17 @@ export function Tutorials() {
         <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-8">
           Tutorials
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {tutorials.map((tutorial, index) => (
             <Card key={index} className="hover:shadow-lg transition-shadow">
               <CardHeader>
                 <CardTitle>{tutorial.title}</CardTitle>
                 <CardDescription>{tutorial.description}</CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="space-y-4">
+                <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg text-center">
+                  {tutorial.placeholder}
+                </div>
                 <Button className="w-full" asChild>
                   <a href={tutorial.link}>Start Tutorial</a>
                 </Button>
