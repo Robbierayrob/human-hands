@@ -1,4 +1,4 @@
-declare module 'vanta/src/vanta.halo.js' {
+declare module 'vanta/src/vanta.halo' {
   const HALO: (options: {
     el: HTMLElement;
     THREE: typeof THREE;

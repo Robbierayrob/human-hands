@@ -3,7 +3,6 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import HALO from 'vanta/src/vanta.halo';
-import type { VantaHalo } from '@/types/vanta';
 
 export const VantaBackground = () => {
   const vantaRef = useRef<HTMLDivElement>(null);
@@ -11,7 +10,7 @@ export const VantaBackground = () => {
   useEffect(() => {
     if (!vantaRef.current) return;
 
-    const vantaEffect: VantaHalo = HALO({
+    const vantaEffect = HALO({
       el: vantaRef.current,
       THREE: THREE,
       mouseControls: true,
