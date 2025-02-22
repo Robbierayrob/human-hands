@@ -24,9 +24,14 @@ export function Tutorials({ id }: TutorialsProps) {
   return (
     <section id={id} className="w-full py-12">
       <div className="container px-4 md:px-6 max-w-4xl mx-auto">
-        <h2 className="text-2xl font-bold tracking-tighter sm:text-3xl text-center mb-6">
-          Tutorials
-        </h2>
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            Explore Our Tutorials
+          </h2>
+          <p className="mt-3 text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            Hands-on guides to help you master engineering concepts
+          </p>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {tutorials.map((tutorial, index) => (
             <Card key={index} className="hover:shadow-lg transition-shadow h-full flex flex-col">
