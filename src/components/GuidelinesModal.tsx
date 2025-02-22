@@ -11,11 +11,11 @@ const GuidelinesModal: React.FC<GuidelinesModalProps> = ({ isOpen, onClose }) =>
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
       <div className="bg-white p-6 rounded-lg shadow-lg">
-        <h2 className="text-lg font-bold mb-2">AI Agent Guidelines</h2>
-        <p className="mb-4">
+        <h2 className="text-lg font-bold mb-2 text-gray-900">AI Agent Guidelines</h2>
+        <p className="mb-4 text-gray-700">
           Here are some example questions you can ask:
         </p>
-        <ul className="list-disc list-inside mb-4">
+        <ul className="list-disc list-inside mb-4 text-gray-700">
           <li>"Show me the tools."</li>
           <li>"What are the replacement parts?"</li>
           <li>"How do I assemble the drive shaft?"</li>
