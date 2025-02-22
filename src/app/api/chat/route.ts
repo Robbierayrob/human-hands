@@ -62,8 +62,8 @@ export async function POST(request: Request) {
                 const video_info = geminiHandler.getVideoInfo(video_id, start_time)
                 if (video_info) {
                     const video_url = geminiHandler.getMediaUrl(
-                        Object.keys(geminiHandler.configData.available_media)
-                            .find(key => geminiHandler.configData.available_media[key] === video_info) || ''
+                        Object.keys(geminiHandler.getConfigData().available_media)
+                            .find(key => geminiHandler.getConfigData().available_media[key] === video_info) || ''
                     )
                     responseData.media.push({
                         type: "video",
