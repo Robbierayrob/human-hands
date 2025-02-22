@@ -45,29 +45,24 @@ export default function IkeaShelfPage() {
         timestamp: new Date()
       }])
       
-      // Mock API call
-      console.log("Mock API Request:", {
-        endpoint: "/api/ikea-chat",
-        method: "POST",
-        body: {
+      // Real API call to Flask server
+      const response = await fetch('http://localhost:5000/api/ikea-chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
           message: message,
           context: messages
-        }
-      })
-
-      // Mock API response with IKEA-specific knowledge
-      const response = await new Promise(resolve => setTimeout(() => {
-        const mockResponse = {
-          success: true,
-          message: `For your shelf design, I recommend considering:
-          - Standard IKEA shelf dimensions
-          - Weight capacity based on your needs
-          - Material options available at IKEA
-          - Wall mounting solutions`
-        }
-        console.log("Mock API Response:", mockResponse)
-        resolve(mockResponse)
-      }, 1000))
+        })
+      });
+      
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      
+      const data = await response.json();
+      console.log("API Response:", data);
       
       // Replace loading message with actual response
       setMessages(prev => [
