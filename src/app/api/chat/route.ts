@@ -54,10 +54,10 @@ export async function POST(request: Request) {
                         url: media_url
                     })
                 }
-            } else if (call.name === "play_video") {
+            } else if (call.name === "play_video" && call.arguments.video_id && call.arguments.start_time) {
                 const video_id = call.arguments.video_id
                 const start_time = call.arguments.start_time
-                const duration = call.arguments.playback_duration
+                const duration = call.arguments.playback_duration || 0
 
                 const video_info = geminiHandler.getVideoInfo(video_id, start_time)
                 if (video_info) {
