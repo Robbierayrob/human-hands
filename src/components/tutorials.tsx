@@ -34,7 +34,7 @@ export function Tutorials({ id }: TutorialsProps) {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {tutorials.map((tutorial, index) => (
-            <Card key={index} className="hover:shadow-lg transition-shadow h-full flex flex-col">
+            <Card key={index} className={`${tutorial.title === "Ikea Shelf" ? 'opacity-50 relative' : ''} hover:shadow-lg transition-shadow h-full flex flex-col`}>
               <div className="relative h-40 w-full overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600">
                   <div className="absolute inset-0 bg-[url('/grid.svg')] bg-[size:40px_40px] opacity-20" />
@@ -42,6 +42,11 @@ export function Tutorials({ id }: TutorialsProps) {
                 <div className="absolute inset-0 flex items-center justify-center text-white text-6xl text-center">
                   {tutorial.placeholder}
                 </div>
+                {tutorial.title === "Ikea Shelf" && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                    <span className="text-white text-xl font-bold">Coming Soon</span>
+                  </div>
+                )}
               </div>
               <CardHeader className="text-center">
                 <CardTitle className="text-xl">{tutorial.title}</CardTitle>
@@ -49,7 +54,11 @@ export function Tutorials({ id }: TutorialsProps) {
               </CardHeader>
               <div className="flex-1" />
               <CardContent className="pb-4 text-center">
-                <Button className="w-full max-w-[200px] mx-auto bg-orange-500 hover:bg-orange-600" asChild>
+                <Button
+                  className={`w-full max-w-[200px] mx-auto ${tutorial.title === "Ikea Shelf" ? 'bg-gray-500 hover:bg-gray-600 cursor-not-allowed' : 'bg-orange-500 hover:bg-orange-600'}`}
+                  asChild
+                  disabled={tutorial.title === "Ikea Shelf"}
+                >
                   <a href={tutorial.link}>Start Tutorial</a>
                 </Button>
               </CardContent>
