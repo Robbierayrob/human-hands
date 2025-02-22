@@ -15,7 +15,10 @@ export function Hero() {
             </p>
           </div>
           <div className="space-x-4 animate-fade-in [animation-delay:0.5s]">
-            <Button onClick={() => document.getElementById('tutorials')?.scrollIntoView({ behavior: 'smooth' })}>
+            <Button 
+              className="bg-orange-500 hover:bg-orange-600 text-white" 
+              onClick={() => document.getElementById('tutorials')?.scrollIntoView({ behavior: 'smooth' })}
+            >
               Get Started
             </Button>
             <Button variant="outline">Learn More</Button>
