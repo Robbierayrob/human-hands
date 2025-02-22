@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
+import Link from "next/link"
 
 interface Message {
   text: string
@@ -80,7 +81,13 @@ export default function GrundfossPage() {
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
-      <h1 className="text-3xl font-bold mb-6">Grundfoss Pump System Assistant</h1>
+      <div className="flex items-center justify-between mb-6">
+        <Link href="/" className="text-primary hover:text-primary/80 transition-colors">
+          &larr; Back to Home
+        </Link>
+        <h1 className="text-3xl font-bold">Grundfoss Pump System Assistant</h1>
+        <div className="w-20"></div> {/* Spacer for alignment */}
+      </div>
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg flex flex-col h-[600px]">
         <div className="p-4 border-b dark:border-gray-700">
           <h3 className="font-semibold">Grundfoss Pump System Chat</h3>
