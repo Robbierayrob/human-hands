@@ -40,6 +40,22 @@
     box-shadow: 0 1px 3px rgba(0,0,0,0.4);
 }
 
+.initial-animate {
+  animation: bounce 0.5s ease-in-out 1; /* Single bounce */
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-5px); /* Move up slightly */
+  }
+  60% {
+    transform: translateY(-2px);
+  }
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
