@@ -1,7 +1,8 @@
 'use client';
 
 import { useConversation } from '@11labs/react';
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
+import ToggleButton from './ToggleButton'; // Import the ToggleButton
 
 interface ElevenLabsConversationProps {
   onAiMessage: (text: string) => void;
@@ -25,6 +26,16 @@ export function ElevenLabsConversation({ onAiMessage, onUserMessage }: ElevenLab
 
   const [sessionStarted, setSessionStarted] = useState(false); // Track session start
 
+  // Use useEffect to manage starting/stopping based on sessionStarted
+  useEffect(() => {
+    if (sessionStarted) {
+      startConversation();
+    } else {
+      stopConversation();
+    }
+  }, [sessionStarted, startConversation, stopConversation]);
+
+
   const startConversation = useCallback(async () => {
     try {
       // Request microphone permission
@@ -34,7 +45,7 @@ export function ElevenLabsConversation({ onAiMessage, onUserMessage }: ElevenLab
       await conversation.startSession({
         agentId: 'alW2fCMLhSwBA36jPYyo',
       });
-      setSessionStarted(true); // Set sessionStarted to true
+      // setSessionStarted(true);  <- Moved to useEffect
 
     } catch (error) {
       console.error('Failed to start conversation:', error);
@@ -43,26 +54,17 @@ export function ElevenLabsConversation({ onAiMessage, onUserMessage }: ElevenLab
 
   const stopConversation = useCallback(async () => {
     await conversation.endSession();
-    setSessionStarted(false); // Reset sessionStarted on stop
+    // setSessionStarted(false); <- Moved to useEffect
   }, [conversation]);
+
+    const handleToggleChange = (isOn: boolean) => {
+    setSessionStarted(isOn);
+  };
 
   return (
     <div className="flex flex-col items-center gap-4">
       <div className="flex gap-2">
-        <button
-          onClick={startConversation}
-          disabled={conversation.status === 'connected'}
-          className="px-4 py-2 bg-blue-500 text-white rounded disabled:bg-gray-300"
-        >
-          Start Conversation
-        </button>
-        <button
-          onClick={stopConversation}
-          disabled={conversation.status !== 'connected'}
-          className="px-4 py-2 bg-red-500 text-white rounded disabled:bg-gray-300"
-        >
-          Stop Conversation
-        </button>
+        <ToggleButton onToggle={handleToggleChange} initialState={sessionStarted} />
       </div>
 
       <div className="flex items-center">
