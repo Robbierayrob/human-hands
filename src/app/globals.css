@@ -41,19 +41,21 @@
 }
 
 .bounce-once {
-  animation: bounce 0.5s ease-in-out 1; /* Single bounce */
+    animation: bounce-with-delay 2.5s infinite;
 }
-
 .bounce-loop {
-  animation: bounce 3s infinite; /* Loop infinitely, 3s duration */
+    animation: bounce-with-delay 2.5s infinite;
 }
 
-@keyframes bounce {
-  0%, 100% {
+@keyframes bounce-with-delay {
+  0%, 20% {
     transform: translateY(0);
   }
-  50% {
-    transform: translateY(-10px); /* Move up more significantly */
+  10% {
+    transform: translateY(-10px);
+  }
+  20%, 100% { /* Start the 2-second delay after the bounce */
+    transform: translateY(0);
   }
 }
 
