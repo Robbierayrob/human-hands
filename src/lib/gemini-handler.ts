@@ -189,6 +189,10 @@ Assistant:
 
 export class GeminiHandler {
   private configData: ConfigData;
+
+  public getConfigData(): ConfigData {
+    return this.configData;
+  }
   private model: GoogleGenerativeAI.GenerativeModel;
   private chat: GoogleGenerativeAI.ChatSession;
 
