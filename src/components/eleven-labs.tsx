@@ -5,9 +5,10 @@ import { useCallback } from 'react';
 
 interface ElevenLabsConversationProps {
   onAiMessage: (text: string) => void;
+  onUserMessage: (text: string) => void;
 }
 
-export function ElevenLabsConversation({ onAiMessage }: ElevenLabsConversationProps) {
+export function ElevenLabsConversation({ onAiMessage, onUserMessage }: ElevenLabsConversationProps) {
   const conversation = useConversation({
     onConnect: () => console.log('Connected'),
     onDisconnect: () => console.log('Disconnected'),
@@ -15,6 +16,8 @@ export function ElevenLabsConversation({ onAiMessage }: ElevenLabsConversationPr
       console.log('Message:', message);
       if (message.source === 'ai') {
         onAiMessage(message.message);
+      } else if (message.source === 'user') {
+        onUserMessage(message.message);
       }
     },
     onError: (error) => console.error('Error:', error),
@@ -65,4 +68,3 @@ export function ElevenLabsConversation({ onAiMessage }: ElevenLabsConversationPr
     </div>
   );
 }
-

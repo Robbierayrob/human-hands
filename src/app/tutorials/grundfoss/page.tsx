@@ -17,6 +17,7 @@ interface Message {
 export default function GrundfossPage() {
   const [message, setMessage] = useState("")
   const [messages, setMessages] = useState<Message[]>([])
+  const messagesEndRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     // Initialize with welcome message only on client side -- REMOVED, now handled by ElevenLabs
@@ -26,8 +27,6 @@ export default function GrundfossPage() {
     //   timestamp: new Date()
     // }])
   }, [])
-  const messagesEndRef = useRef<HTMLDivElement>(null)
-
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({
       behavior: "smooth",
@@ -120,6 +119,18 @@ export default function GrundfossPage() {
     setMessages((prevMessages) => [...prevMessages, newMessage]);
   };
 
+  const handleUserMessage = (text: string) => {
+    // Check if the message is already in the messages array to avoid duplicates
+    if (!messages.some(msg => msg.text === text && msg.sender === 'user')) {
+      const newMessage: Message = {
+        text: text,
+        sender: 'user',
+        timestamp: new Date(),
+      };
+      setMessages((prevMessages) => [...prevMessages, newMessage]);
+    }
+  };
+
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       <div className="flex items-center justify-between mb-6">
@@ -130,7 +141,7 @@ export default function GrundfossPage() {
         <div className="w-20"></div> {/* Spacer for alignment */}
       </div>
       <div className="space-y-4">
-        <ElevenLabsConversation onAiMessage={handleAiMessage} />
+        <ElevenLabsConversation onAiMessage={handleAiMessage} onUserMessage={handleUserMessage}/>
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg flex flex-col h-[calc(100vh-300px)] min-h-[500px] max-h-[700px]">
           <div className="p-4 border-b dark:border-gray-700">
             <h3 className="font-semibold">Grundfoss Pump System Chat</h3>
