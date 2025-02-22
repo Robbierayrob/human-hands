@@ -110,7 +110,7 @@ Assistant:
     "response": "Which part of the assembly would you like help with? Please choose one of the following options:\n1. Drive shaft to motor\n2. Drive housing to electric motor\n3. Pump body to drive housing"
 }
 
-User: Drive shaft to motor
+User: How do I assemble the drive shaft to the motor?
 Assistant:
 {
     "function_calls": [
@@ -125,6 +125,23 @@ Assistant:
         }
     ],
     "response": "Here's a video showing how to assemble the drive shaft to the motor."
+}
+
+User: Show me how to attach the pump body to the drive housing
+Assistant:
+{
+    "function_calls": [
+        {
+            "name": "play_video",
+            "arguments": {
+                "media_type": "VIDEO",
+                "video_id": "c8Lhfl0OXt0",
+                "start_time": 213,
+                "playback_duration": 168
+            }
+        }
+    ],
+    "response": "Here's a video showing how to attach the pump body to the drive housing."
 }
 
 User: Show me the tools I need.
