@@ -26,36 +26,72 @@ export default function Home() {
   return (
     <div className="font-[family-name:var(--font-geist-sans)]">
       <main>
-        <section className="w-full py-12 bg-gray-50 dark:bg-gray-800">
+        <section className="w-full py-12 bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900">
           <div className="container px-4 md:px-6 max-w-4xl mx-auto">
             <div className="text-center mb-8">
               <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-gray-900 dark:text-white">
                 AI Voice Assistant
               </h2>
               <p className="mt-3 text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Click to activate your personal engineering assistant
+                Tap to activate your personal engineering assistant
               </p>
-              <div className="mt-6">
-                <button
-                  onClick={handleVoiceAssistantClick}
-                  disabled={isListening}
-                  className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {isListening ? (
-                    <div className="flex items-center">
-                      <div className="w-2 h-2 bg-white rounded-full animate-pulse mr-2"></div>
-                      Listening...
-                    </div>
-                  ) : (
-                    "Start Voice Assistant"
+              <div className="mt-10 flex justify-center">
+                <div className="relative w-32 h-32">
+                  {isListening && (
+                    <>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="absolute w-32 h-32 rounded-full bg-indigo-400/20 voice-wave"></div>
+                        <div className="absolute w-32 h-32 rounded-full bg-indigo-400/20 voice-wave"></div>
+                        <div className="absolute w-32 h-32 rounded-full bg-indigo-400/20 voice-wave"></div>
+                      </div>
+                    </>
                   )}
-                </button>
-                {response && (
-                  <div className="mt-4 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg">
-                    <p className="text-gray-800 dark:text-gray-200">{response}</p>
-                  </div>
-                )}
+                  <button
+                    onClick={handleVoiceAssistantClick}
+                    disabled={isListening}
+                    className="absolute inset-0 m-auto w-24 h-24 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-80 disabled:cursor-not-allowed"
+                  >
+                    {isListening ? (
+                      <svg
+                        className="w-12 h-12 animate-pulse"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0-4H3m15 0h3m-3-7a7 7 0 00-7-7m0 0a7 7 0 00-7 7m7-7v4m0-4h14m-14 0H3"
+                        />
+                      </svg>
+                    ) : (
+                      <svg
+                        className="w-12 h-12"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0-4H3m15 0h3m-3-7a7 7 0 00-7-7m0 0a7 7 0 00-7 7m7-7v4m0-4h14m-14 0H3"
+                        />
+                      </svg>
+                    )}
+                  </button>
+                </div>
               </div>
+              {response && (
+                <div className="mt-8 p-6 bg-white dark:bg-gray-700 rounded-xl shadow-lg max-w-2xl mx-auto">
+                  <p className="text-gray-800 dark:text-gray-200 text-lg leading-relaxed">
+                    {response}
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </section>
