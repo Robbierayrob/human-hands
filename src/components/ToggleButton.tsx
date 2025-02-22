@@ -25,7 +25,7 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({ onToggle, initialState = fa
       type="button"
       className={`relative inline-flex items-center h-7 w-12 rounded-full transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 toggle-button ${
         isOn ? 'bg-green-500' : 'bg-gray-300'
-      } ${hasMounted ? '' : 'initial-animate'}`}
+      } ${hasMounted ? 'bounce-loop' : 'bounce-once'}`}
       onClick={handleToggle}
       aria-pressed={isOn}
       title={isOn ? "Turn off conversation" : "Turn on conversation"} // Tooltip

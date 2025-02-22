@@ -40,7 +40,11 @@
     box-shadow: 0 1px 3px rgba(0,0,0,0.4);
 }
 
-.initial-animate {
+.bounce-once {
+  animation: bounce 0.5s ease-in-out 1; /* Single bounce */
+}
+
+.bounce-loop {
   animation: bounce 3s infinite; /* Loop infinitely, 3s duration */
 }
 
