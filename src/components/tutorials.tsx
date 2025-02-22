@@ -10,7 +10,7 @@ const tutorials = [
     title: "Ikea Shelf",
     description: "Design and optimize your shelf structures",
     link: "/tutorials/ikea-shelf",
-    placeholder: "📚 Shelf Design Tools"
+    placeholder: "📚 IKEA Shelf "
   },
   {
     title: "Grundfoss",
