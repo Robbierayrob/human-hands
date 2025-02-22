@@ -193,8 +193,8 @@ export class GeminiHandler {
   public getConfigData(): ConfigData {
     return this.configData;
   }
-  private model: ReturnType<typeof GoogleGenerativeAI.prototype.getGenerativeModel>;
-  private chat: ReturnType<typeof GoogleGenerativeAI.prototype.startChat>;
+  private model: ReturnType<GoogleGenerativeAI['getGenerativeModel']>;
+  private chat: ReturnType<ReturnType<GoogleGenerativeAI['getGenerativeModel']>['startChat']>;
 
   constructor() {
     const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY!);
