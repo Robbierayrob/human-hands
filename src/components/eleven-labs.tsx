@@ -13,7 +13,7 @@ export function ElevenLabsConversation({ onAiMessage, onUserMessage }: ElevenLab
   const conversation = useConversation({
     onConnect: () => console.log('Connected'),
     onDisconnect: () => console.log('Disconnected'),
-    onMessage: (message) => {
+    onMessage: (message: { source: string; message: string; }) => {
       console.log('Message:', message);
       if (message.source === 'ai') {
         onAiMessage(message.message);
@@ -21,7 +21,7 @@ export function ElevenLabsConversation({ onAiMessage, onUserMessage }: ElevenLab
         onUserMessage(message.message);
       }
     },
-    onError: (error) => console.error('Error:', error),
+    onError: (error: any) => console.error('Error:', error),
   });
 
   const [sessionStarted, setSessionStarted] = useState(false); // Track session start
