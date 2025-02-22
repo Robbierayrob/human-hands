@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react"
 import Link from "next/link"
 import { ElevenLabsConversation } from "@/components/eleven-labs"
 import AudioVisualizer from "@/components/AudioVisualizer" // Import the new component
+import GuidelinesModal from "@/components/GuidelinesModal"; // Import the modal
 
 interface Message {
   text: string
@@ -20,6 +21,7 @@ export default function GrundfossPage() {
   const [messages, setMessages] = useState<Message[]>([])
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const [userAudio, setUserAudio] = useState<MediaStream | null>(null); // State for user audio
+  const [isModalOpen, setIsModalOpen] = useState(true); // State for modal visibility
 
   useEffect(() => {
     // Get user media (microphone)
@@ -143,9 +145,13 @@ export default function GrundfossPage() {
   const handleUserMessage = (text: string) => {
       handleSendVoice(text); // Call handleSendVoice to send the message to the backend
   };
+    const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
+      <GuidelinesModal isOpen={isModalOpen} onClose={closeModal} />
       <div className="flex items-center justify-between mb-6">
         <Link href="/" className="text-primary hover:text-primary/80 transition-colors">
           &larr; Back to Home
