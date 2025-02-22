@@ -198,12 +198,14 @@ class GeminiHandler:
         """Constructs a URL for a given media source (image or video)."""
         item = self.config_data["available_media"].get(source)
         if item and item["type"] == "IMAGE":
-            image_path = os.path.join(Config.IMAGE_FOLDER, item["source"])
-            if os.path.exists(Path("static/images") / item["source"]):
-                return f"/{image_path}"
-            else:
-                print(f"Image file not found: {image_path}")
-                return None
+            # Map local filenames to CDN URLs
+            cdn_urls = {
+                "tools_all.png": "https://imagedelivery.net/q-41_Eh4Vh68wzQLFCdK2g/c48c3db7-5a1e-4434-11ba-a9ff53bc5000/public",
+                "replacement_parts.png": "https://imagedelivery.net/q-41_Eh4Vh68wzQLFCdK2g/8aebe96c-54c6-4830-b370-f22c7b850800/public",
+                "default_image.png": "https://imagedelivery.net/q-41_Eh4Vh68wzQLFCdK2g/bdd5175a-4b6c-4453-1954-37dbba6f8e00/public",
+                "assembled_drawing.png": "https://imagedelivery.net/q-41_Eh4Vh68wzQLFCdK2g/b4ac0a1d-7a21-4076-50d4-4c1e2e426300/public"
+            }
+            return cdn_urls.get(item["source"])
         elif item and item["type"] == "VIDEO":
             return f"https://www.youtube.com/watch?v={item['video_id']}"  # No &t= here
         return None
