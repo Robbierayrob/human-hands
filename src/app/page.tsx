@@ -3,17 +3,9 @@
 
 import { Tutorials } from "@/components/tutorials"
 import { VantaBackground } from "@/components/VantaBackground"
-import React, { useState } from 'react';
+import React from 'react';
 
 export default function Home() {
-  const [isAnimating, setIsAnimating] = useState(false);
-
-  const handleClick = () => {
-    setIsAnimating(true);
-    // Remove the animation class after it completes (0.5s in this case)
-    setTimeout(() => setIsAnimating(false), 500);
-  };
-
   return (
     <div className="font-[family-name:var(--font-geist-sans)] relative">
       <VantaBackground />
