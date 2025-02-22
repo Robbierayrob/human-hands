@@ -25,7 +25,7 @@ export function Tutorials({ id }: TutorialsProps) {
     <section id={id} className="w-full py-12">
       <div className="container px-4 md:px-6 max-w-4xl mx-auto">
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-white">
             Explore Our Tutorials
           </h2>
           <p className="mt-3 text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
