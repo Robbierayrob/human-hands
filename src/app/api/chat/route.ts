@@ -22,9 +22,16 @@ export async function POST(request: Request) {
             return NextResponse.json(geminiResponse, { status: 500 })
         }
 
+        interface MediaItem {
+            type: "image" | "video";
+            url: string;
+            start_time?: number;
+            duration?: number;
+        }
+
         const responseData = {
             response: geminiResponse.response || "",
-            media: [],
+            media: [] as MediaItem[],
         }
 
         interface FunctionCall {
