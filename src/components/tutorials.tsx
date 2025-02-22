@@ -26,12 +26,17 @@ export function Tutorials({ id, className }: TutorialsProps) {
     <section id={id} className={`w-full py-12 ${className}`}>
       <div className="container px-4 md:px-6 max-w-4xl mx-auto">
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-white relative z-10">
-            Explore Our Tutorials
-          </h2>
-          <p className="mt-3 text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Hands-on guides to help you master engineering concepts
-          </p>
+          <div className="bg-white/10 backdrop-blur-md rounded-lg p-8 border border-white/10">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
+              Can we fix it? Yes we can!
+            </h1>
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-white">
+              Explore Our Tutorials
+            </h2>
+            <p className="mt-3 text-lg text-white/80 max-w-2xl mx-auto">
+              Hands-on guides to help you master engineering concepts
+            </p>
+          </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-8">
           {tutorials.map((tutorial, index) => (
