@@ -34,7 +34,7 @@ export function Tutorials({ id }: TutorialsProps) {
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600">
                   <div className="absolute inset-0 bg-[url('/grid.svg')] bg-[size:40px_40px] opacity-20" />
                 </div>
-                <div className="absolute inset-0 flex items-center justify-center text-white text-6xl">
+                <div className="absolute inset-0 flex items-center justify-center text-white text-6xl text-center">
                   {tutorial.placeholder}
                 </div>
               </div>
